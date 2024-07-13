@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 public class RateDiscountPolicyTests {
     RateDiscountPolicy rateDiscountPolicy = new RateDiscountPolicy();
 
+
     @Test
     @DisplayName("VIP 10% discount")
     void vip_o(){
