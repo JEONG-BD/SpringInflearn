@@ -47,6 +47,8 @@ public class ApplicationContextSameBeanFindTests {
     }
 
 
+
+
     @Configuration
     static class SameBeanConfig{
 
