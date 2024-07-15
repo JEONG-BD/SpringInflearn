@@ -14,7 +14,7 @@ public class RateDiscountPolicyTests {
     @DisplayName("VIP 10% discount")
     void vip_o(){
         Member member = new Member(1L, "memberO", Grade.VIP);
-
+        System.out.println("Test");
         int discount = rateDiscountPolicy.discount(member, 10000);
 
         Assertions.assertThat(discount).isEqualTo(1000);
