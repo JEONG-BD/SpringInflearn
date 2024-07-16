@@ -1,11 +1,8 @@
 package com.example.w00.order;
 
 import com.example.w00.discount.DiscountPolicy;
-import com.example.w00.discount.FixDiscountPolicy;
-import com.example.w00.discount.RateDiscountPolicy;
 import com.example.w00.member.Member;
 import com.example.w00.member.MemberRepository;
-import com.example.w00.member.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
