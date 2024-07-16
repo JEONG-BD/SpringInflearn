@@ -23,13 +23,13 @@ public class AutoAppConfig {
 //        return new MemoryMemberRepository();
 //    }
 
-    @Autowired MemberRepository memberRepository;
-    @Autowired DiscountPolicy discountPolicy;
-
-    @Bean
-    OrderService orderService(){
-        return new OrderServiceImpl(memberRepository, discountPolicy);
-    }
+//    @Autowired MemberRepository memberRepository;
+//    @Autowired DiscountPolicy discountPolicy;
+//
+//    @Bean
+//    OrderService orderService(){
+//        return new OrderServiceImpl(memberRepository, discountPolicy);
+//    }
 
 //    @Bean
 //    OrderService orderService(MemberRepository memberRepository, DiscountPolicy discountPolicy){

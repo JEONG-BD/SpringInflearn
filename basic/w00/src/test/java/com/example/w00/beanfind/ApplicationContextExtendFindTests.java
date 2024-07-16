@@ -23,7 +23,7 @@ public class ApplicationContextExtendFindTests {
     @Test
     @DisplayName("parent type")
     void findBeanByParentTypeDuplicate(){
-        DiscountPolicy bean = ac.getBean(DiscountPolicy.class);
+//        DiscountPolicy bean = ac.getBean(DiscountPolicy.class);
         assertThrows(NoUniqueBeanDefinitionException.class, ()
         -> ac.getBean(DiscountPolicy.class));
     }
