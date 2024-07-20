@@ -9,8 +9,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 class MemberRepositoryTests {
@@ -24,12 +22,12 @@ class MemberRepositoryTests {
     public void testMember() throws Exception{
 
         //given
-        Member member = new Member();
+        MemberSample member = new MemberSample();
         member.setUsername("memberA");
         Long savedId = memberRepository.save(member);
 
         //when
-        Member findMember = memberRepository.find(savedId);
+        MemberSample findMember = memberRepository.find(savedId);
 
         //then
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
