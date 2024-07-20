@@ -1,15 +1,14 @@
 package com.example.w01.domain.item;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="dtype")
 public abstract class Item {
 
     @Id
@@ -22,8 +21,5 @@ public abstract class Item {
     private int price;
 
     private int stockQuantity;
-
-
-
 
 }
