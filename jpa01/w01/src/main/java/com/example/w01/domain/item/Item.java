@@ -1,8 +1,12 @@
 package com.example.w01.domain.item;
 
+import com.example.w01.domain.Category;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,5 +25,8 @@ public abstract class Item {
     private int price;
 
     private int stockQuantity;
+
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
 
 }

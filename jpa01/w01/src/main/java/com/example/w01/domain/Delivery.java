@@ -14,6 +14,7 @@ public class Delivery {
     @Column(name="delivery_id")
     private Long id;
 
+    @OneToOne(mappedBy = "delivery")
     private Order order;
 
     @Embedded
@@ -21,6 +22,4 @@ public class Delivery {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
-
-
 }
