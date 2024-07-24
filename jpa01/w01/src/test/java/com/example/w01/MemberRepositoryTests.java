@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 class MemberRepositoryTests {
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberRepositorySample memberRepository;
+
 
     @Test
     @Transactional
