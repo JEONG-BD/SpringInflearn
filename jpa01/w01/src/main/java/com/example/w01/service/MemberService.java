@@ -41,7 +41,7 @@ public class MemberService {
     }
 
     //@Transactional(readOnly = true)
-    public List<Member> finaMembers(){
+    public List<Member> findMembers(){
         return memberRepository.finaAll();
     }
 
