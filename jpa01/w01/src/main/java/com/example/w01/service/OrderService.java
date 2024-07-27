@@ -1,9 +1,6 @@
 package com.example.w01.service;
 
-import com.example.w01.domain.Delivery;
-import com.example.w01.domain.Member;
-import com.example.w01.domain.Order;
-import com.example.w01.domain.OrderItem;
+import com.example.w01.domain.*;
 import com.example.w01.domain.item.Item;
 import com.example.w01.repository.ItemRepository;
 import com.example.w01.repository.MemberRepository;
