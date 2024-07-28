@@ -5,6 +5,7 @@ import com.example.w01.domain.item.Item;
 import com.example.w01.repository.ItemRepository;
 import com.example.w01.repository.MemberRepository;
 import com.example.w01.repository.OrderRepository;
+import com.example.w01.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +44,7 @@ public class OrderService {
         order.cancel();
     }
 
-    /*
     public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAll(orderSearch);
-    }*/
+        return orderRepository.findAllByString(orderSearch);
+    }
 }

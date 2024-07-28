@@ -28,7 +28,7 @@ public class OrderRepository {
         return em.find(Order.class, orderId);
     }
 
-    public List<Order> findAll1(OrderSearch orderSearch){
+    public List<Order> findAllByString(OrderSearch orderSearch){
         /*return em.createQuery("select o from Order o join o.member m" +
                 " where o.status =:status" +
                 " and m.name like :name", Order.class)
@@ -47,7 +47,7 @@ public class OrderRepository {
             } else {
               jpql += " and";
             }
-            jpql += "o.status = :status";
+            jpql += " o.status = :status";
         }
 
         if(StringUtils.hasText(orderSearch.getMemberName())){
@@ -57,8 +57,12 @@ public class OrderRepository {
             } else {
                 jpql += " and";
             }
-            jpql += "m.name like :name";
+            jpql += " m.name like :name";
         }
+        System.out.println(jpql);
+        System.out.println(jpql);
+        System.out.println(jpql);
+        System.out.println(jpql);
 
         TypedQuery<Order> query = em.createQuery(jpql, Order.class)
                 .setMaxResults(1000);
@@ -70,8 +74,7 @@ public class OrderRepository {
         if(StringUtils.hasText(orderSearch.getMemberName())){
             query = query.setParameter("name", orderSearch.getMemberName());
         }
-        List<Order> orderList = query.getResultList();
-        return orderList;
+        return query.getResultList();
         //return em.createQuery(jpql, Order.class).setMaxResults(1000).getResultList();
     }
 
