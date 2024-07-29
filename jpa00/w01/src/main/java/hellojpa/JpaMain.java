@@ -70,14 +70,13 @@ public class JpaMain {
 //                em.persist(member);
 //                System.out.println("==Insert===");
 //            }
+//            Member member = em.find(Member.class, 11L);
+//            member.setName("B");
 
-            Member member = em.find(Member.class, 11L);
-            member.setName("B");
-
-            em.detach(member);
-            em.clear();
-            System.out.println("======================");
-            tx.commit();
+//            em.detach(member);
+//            em.clear();
+//            System.out.println("======================");
+//            tx.commit();
 
 
         } catch (Exception e) {
