@@ -77,7 +77,11 @@ public class JpaMain {
 //            em.clear();
 //            System.out.println("======================");
 //            tx.commit();
-
+            MemberSample member = new MemberSample();
+            member.setName("TestA");
+            em.persist(member);
+            tx.commit();
+            System.out.println("------");
 
         } catch (Exception e) {
             tx.rollback();
