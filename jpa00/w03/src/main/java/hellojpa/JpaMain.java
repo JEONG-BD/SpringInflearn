@@ -1,7 +1,7 @@
 package hellojpa;
 
-import hellojpa.domain.Member;
-import hellojpa.domain.Team;
+import hellojpa.domain.MemberSimple;
+import hellojpa.domain.TeamSimple;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,31 +17,31 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
+            TeamSimple teamSimple = new TeamSimple();
+            teamSimple.setName("TeamA");
+            em.persist(teamSimple);
 
 
-            Member member = new Member();
-            member.setName("memberA");
+            MemberSimple memberSimple = new MemberSimple();
+            memberSimple.setName("memberA");
             //member.setTeam(team.getId());
-            member.setTeam(team);
-            em.persist(member);
+            memberSimple.setTeamSimple(teamSimple);
+            em.persist(memberSimple);
             em.flush();
             em.clear();
 
 
-            Member findMember = em.find(Member.class, member.getId());
+            MemberSimple findMemberSimple = em.find(MemberSimple.class, memberSimple.getId());
             //System.out.println(findMember.getTeamId());
-            System.out.println(findMember.getName());
+            System.out.println(findMemberSimple.getName());
 
-            Team findTeam = findMember.getTeam();
+            TeamSimple findTeamSimple = findMemberSimple.getTeamSimple();
             //Team findTeam = em.find(Team.class, teamId);
-            System.out.println(findTeam.getName());
+            System.out.println(findTeamSimple.getName());
             System.out.println("===========================");
 
-            List<Member> members = member.getTeam().getMembers();
-            for (Member mem : members){
+            List<MemberSimple> memberSimples = memberSimple.getTeamSimple().getMemberSimples();
+            for (MemberSimple mem : memberSimples){
                 System.out.println(mem.getName());
             }
 
