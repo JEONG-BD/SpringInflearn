@@ -1,5 +1,6 @@
 package hellojpa;
 
+import hellojpa.domain.Member;
 import hellojpa.domain.Movie;
 
 import javax.persistence.EntityManager;
@@ -14,17 +15,21 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Movie movie = new Movie();
-            movie.setDirector("directorA");
-            movie.setActor("bbb");
-            movie.setName("바람");
-            movie.setPrice(100000);
-            em.persist(movie);
-            em.flush();
-            em.clear();
+//            Movie movie = new Movie();
+//            movie.setDirector("directorA");
+//            movie.setActor("bbb");
+//            movie.setName("바람");
+//            movie.setPrice(100000);
+//            em.persist(movie);
+//            em.flush();
+//            em.clear();
+//
+//            Movie findMovie = em.find(Movie.class, movie.getId());
+//            System.out.println(findMovie + "find Movie");
+            Member member = new Member();
+            member.setName("TestA");
+            em.persist(member);
 
-            Movie findMovie = em.find(Movie.class, movie.getId());
-            System.out.println(findMovie + "find Movie");
             tx.commit();
         } catch (Exception ex){
             tx.rollback();
