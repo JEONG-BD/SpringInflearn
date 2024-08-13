@@ -1,6 +1,8 @@
 package hellojpa;
 
+import hellojpa.domain.Child;
 import hellojpa.domain.Member;
+import hellojpa.domain.Parent;
 import hellojpa.domain.Team;
 
 import javax.persistence.EntityManager;
@@ -21,20 +23,34 @@ public class JpaMain {
 
         try {
 
-            Member member = new Member();
-            member.setName("ProxyName2");
-            //Team team = new Team();
-            //team.setTeamname("TestTeam3");
-            //member.setTeam(team);
-            em.persist(member);
+//            Member member = new Member();
+//            member.setName("ProxyName2");
+//            Team team = new Team();
+//            team.setTeamname("TestTeam3");
+//            member.setTeam(team);
+//            em.persist(member);
+//
+//            Member refMember = em.getReference(Member.class, member.getId());
+//
+//
+//            System.out.println("refMember" + refMember.getClass());
+//            System.out.println(refMember.getName());
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            Member refMember = em.getReference(Member.class, member.getId());
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
 
-            //Member findMember = em.find(Member.class, member.getId());
+            em.persist(parent);
+            //em.persist(child1);
+            //em.persist(child2);
+            em.flush();
+            em.clear();
 
-            System.out.println("refMember" + refMember.getClass());
-            System.out.println(refMember.getName());
-            //System.out.println("findMember" +findMember.getClass());
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0);
+            tx.commit();
 
         } catch (Exception ex) {
             tx.rollback();
