@@ -17,6 +17,8 @@ public class Member extends BaseEntity{
 
     private String name;
 
+    private MemberType type;
+
     private int age;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,5 +55,20 @@ public class Member extends BaseEntity{
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+    public void changeTeam(Team team){
+        this.team =team;
+        team.getMemberList().add(this);
     }
 }
