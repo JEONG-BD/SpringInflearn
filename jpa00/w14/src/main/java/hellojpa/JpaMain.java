@@ -139,6 +139,14 @@ public class JpaMain {
                 }
             }
 
+            List<Member> resultList4 = em.createNamedQuery("Member.findByUserName", Member.class)
+                    .setParameter("username", "member B")
+                    .getResultList();
+
+            for(Member row : resultList4){
+                System.out.println(row);
+            }
+
             tx.commit();
 
         } catch (Exception ex) {

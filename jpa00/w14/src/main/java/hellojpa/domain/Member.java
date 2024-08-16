@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
+@NamedQuery(name = "Member.findByUserName",
+            query = "select m from Member m where m.name = :username")
 public class Member extends BaseEntity{
 
     @Id
