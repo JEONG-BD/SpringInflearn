@@ -11,7 +11,7 @@ import lombok.Setter;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
 

@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Delivery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "DELIVERY_ID")
     private Long id;
 

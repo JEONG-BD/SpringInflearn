@@ -9,35 +9,31 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
-//
-//    public MemberService(MemberRepository memberRepository) {
-//        this.memberRepository = memberRepository;
-//    }
 
-    @Transactional(readOnly = false)
-    public Long joinMember(Member member){
-        validateMember(member);
+    @Transactional
+    public Long add(Member member){
+        validate(member);
         memberRepository.save(member);
         return member.getId();
     }
 
-    public void validateMember(Member member) {
-        List<Member> findMember = memberRepository.findByMemberName(member.getName());
+    public void validate(Member member) {
+        List<Member> findMember = memberRepository.findByName(member.getName());
         if (!findMember.isEmpty()){
-            throw new IllegalStateException("Error");
+            throw new IllegalStateException("이미 존재하는 회원");
         }
     }
 
-    public List<Member> allMember(){
+    public List<Member> all(){
         return memberRepository.findAll();
     }
 
-    public Member findMember(Long memberId){
-        return memberRepository.findByMember(memberId);
+    public Member findOne(Long memberId){
+        return memberRepository.findById(memberId);
     }
 }
