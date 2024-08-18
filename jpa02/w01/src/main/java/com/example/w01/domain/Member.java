@@ -1,6 +1,7 @@
 package com.example.w01.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
 
+    @NotEmpty
     @Column(name = "MEMBER_NAME")
     private String name;
 
