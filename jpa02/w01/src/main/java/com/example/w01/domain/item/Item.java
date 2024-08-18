@@ -47,4 +47,14 @@ public abstract class Item {
 
         this.stockQuantity -= quantity;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", itemName='" + itemName + '\'' +
+                ", price=" + price +
+                ", stockQuantity=" + stockQuantity +
+                '}';
+    }
 }
