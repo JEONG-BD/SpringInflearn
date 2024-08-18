@@ -30,7 +30,7 @@ class MemberServiceTests {
     public void 회원가입 () throws Exception{
         //given
         Member member = new Member();
-        member.setName("사용자A");
+        member.setName("사용자AB");
 
         //when
         Long memberId = memberService.add(member);
@@ -47,5 +47,24 @@ class MemberServiceTests {
         //Assertions.assertThat(member.getId()).isEqualTo(findMember.getId());
         //Assertions.assertThat(member).isEqualTo(memberRepository.findById(memberId));
 
+    }
+
+    @Test
+    public void 중복회원 () throws Exception{
+        //given
+        Member member1 = new Member();
+        member1.setName("Test User1");
+        Member member2 = new Member();
+        member1.setName("Test User1");
+
+        //when
+        memberService.add(member1);
+        try {
+            memberService.add(member2);
+        }catch (IllegalStateException ex){
+            return;
+        }
+        //then
+        //fail("예외가 발생해야 한다 ");
     }
 }
