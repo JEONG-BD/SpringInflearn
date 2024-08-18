@@ -28,4 +28,22 @@ public class OrderItem {
 
     @Column(name = "COUNT")
     private int orderCount;
+
+
+    public static OrderItem createOrderItem(Item item, int orderPrice, int orderCount){
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setOrderCount(orderCount);
+
+        item.removeStock(orderCount);
+        return  orderItem;
+    }
+    public void cancel() {
+        getItem().addStock(orderCount);
+    }
+
+    public int getOrderTotalPrice() {
+        return getOrderPrice() * getOrderCount();
+    }
 }
