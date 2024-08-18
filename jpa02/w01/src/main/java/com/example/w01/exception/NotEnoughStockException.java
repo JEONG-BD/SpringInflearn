@@ -1,7 +1,7 @@
 package com.example.w01.exception;
 
 public class NotEnoughStockException extends RuntimeException {
-    public NotEnoughStockException() {
+    public NotEnoughStockException(String needMoreStock) {
         super();
     }
 

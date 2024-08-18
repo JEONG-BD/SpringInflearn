@@ -1,7 +1,9 @@
 package com.example.w01.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "ORDERS")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id
@@ -35,7 +38,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    public void setMamber(Member member) {
+    public void setMember(Member member) {
         this.member = member;
         member.getOrderList().add(this);
     }
@@ -47,7 +50,7 @@ public class Order {
 
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
-        order.setMamber(member);
+        order.setMember(member);
         order.setDelivery(delivery);
         for (OrderItem item : orderItems) {
             order.addOrderItem(item);
