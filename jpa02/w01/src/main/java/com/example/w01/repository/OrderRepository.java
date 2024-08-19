@@ -1,6 +1,7 @@
 package com.example.w01.repository;
 
 import com.example.w01.domain.Order;
+import com.example.w01.repository.order.simplequery.SimpleOrderQueryDto;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -115,5 +116,11 @@ public class OrderRepository {
                                         "join fetch o.member m " +
                                         "join fetch o.delivery d", Order.class).getResultList();
     }
+//
+//    public List<SimpleOrderQueryDto> findOrderDtos(){
+//        return em.createQuery("select new com.example.w01.repository.SimpleOrderQueryDto(o.id, m.name, o.orderDate, o.status, d.address) from Order o " +
+//                " join o.member m" +
+//                " join o.delivery d", SimpleOrderQueryDto.class).getResultList();
+//    }
 }
 
