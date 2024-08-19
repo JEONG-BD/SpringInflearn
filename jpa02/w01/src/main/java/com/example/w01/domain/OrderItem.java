@@ -1,6 +1,7 @@
 package com.example.w01.domain;
 
 import com.example.w01.domain.item.Item;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class OrderItem {
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order order;

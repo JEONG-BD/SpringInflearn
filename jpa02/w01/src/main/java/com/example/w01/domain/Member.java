@@ -24,7 +24,7 @@ public class Member {
     @Column(name = "MEMBER_NAME")
     private String name;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orderList = new ArrayList<>();
 

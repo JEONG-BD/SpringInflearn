@@ -42,7 +42,10 @@ dependencies {
     implementation("com.github.gavlyukovskiy:datasource-proxy-spring-boot-starter:1.9.1")
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-
+    //
+    //implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.17.0'
+    //implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.17.2'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5-jakarta', version: '2.17.2'
 }
 
 
