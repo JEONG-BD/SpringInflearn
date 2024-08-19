@@ -42,8 +42,17 @@ public class OrderSimpleApiController {
         List<SimpleOrderDto> result = orders.stream().map(o -> new SimpleOrderDto(o)).collect(Collectors.toList());
         return result;
         */
+        System.out.println("v2===============");
         return orderRepository.findAllByString(new OrderSearch()).stream().map(SimpleOrderDto::new).collect(Collectors.toList());
 
+    }
+
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> orderV3(){
+        System.out.println("v3==============");
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        List<SimpleOrderDto> result = orders.stream().map(o -> new SimpleOrderDto(o)).collect(Collectors.toList());
+        return result;
     }
 
     @Data
