@@ -63,8 +63,6 @@ public class OrderSimpleApiController {
 
     }
 
-
-
     @Data
     static class SimpleOrderDto {
 
