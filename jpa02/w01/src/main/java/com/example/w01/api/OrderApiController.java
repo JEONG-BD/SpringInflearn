@@ -6,6 +6,8 @@ import com.example.w01.domain.OrderItem;
 import com.example.w01.domain.OrderStatus;
 import com.example.w01.repository.OrderRepository;
 import com.example.w01.repository.OrderSearch;
+import com.example.w01.repository.order.query.OrderQueryDto;
+import com.example.w01.repository.order.query.OrderQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/api/v1/orders")
     public List<Order> orderV1(){
@@ -75,6 +78,12 @@ public class OrderApiController {
         return collect;
     }
 
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> orderV4(){
+        System.out.println("v4===================================");
+        return orderQueryRepository.findORderQueryDtos();
+    }
 
 
     @Data
