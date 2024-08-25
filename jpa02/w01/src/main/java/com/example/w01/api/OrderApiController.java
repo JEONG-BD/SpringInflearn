@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -47,6 +49,34 @@ public class OrderApiController {
         return collect;
     }
 
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> orderV3(){
+        List<Order> all = orderRepository.findAllWithItem();
+        for (Order order : all) {
+            System.out.println("order ref = " + order + " id = "  + order.getId());
+        }
+
+        List<OrderDto> collect = all.stream().map(o -> new OrderDto(o)).collect(Collectors.toList());
+
+        return collect;
+    }
+
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> orderV3_page(@RequestParam(value = "offest", defaultValue = "0") int offset,
+                                       @RequestParam(value = "limit", defaultValue = "100") int limit){
+        System.out.println("v3.1===================================");
+        List<Order> all = orderRepository.findAllWithMemberDelivery(offset, limit);
+//        for (Order order : all) {
+//            System.out.println("order ref = " + order + " id = "  + order.getId());
+//        }
+
+        List<OrderDto> collect = all.stream().map(o -> new OrderDto(o)).collect(Collectors.toList());
+
+        return collect;
+    }
+
+
+
     @Data
     static class OrderDto {
         private Long orderId;
@@ -54,7 +84,6 @@ public class OrderApiController {
         private LocalDateTime orderDate;
         private OrderStatus orderStatus;
         private Address address;
-        //private List<OrderItem> orderItems;
         private List<OrderItemDto> orderItems;
         public OrderDto(Order order) {
             orderId = order.getId();
