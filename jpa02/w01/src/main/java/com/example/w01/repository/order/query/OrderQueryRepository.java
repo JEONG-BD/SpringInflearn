@@ -67,4 +67,15 @@ public class OrderQueryRepository {
         Map<Long, List<OrderItemQueryDto>> orderItemMap = orderItems.stream().collect(Collectors.groupingBy(orderItemQueryDto -> orderItemQueryDto.getOrderId()));
         return orderItemMap;
     }
+
+    public List<OrderFlatDto> findAllByDto_flat() {
+
+        return em.createQuery("select new com.example.w01.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.itemName, oi.orderPrice, oi.orderCount)" +
+                "from Order o " +
+                "join o.member m " +
+                "join o.delivery d " +
+                "join o.orderItemList oi " +
+                "join oi.item i ", OrderFlatDto.class).getResultList();
+
+    }
 }
