@@ -33,13 +33,24 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+//    public Member findOne(Long memberId){
+//        return memberRepository.findById(memberId);
+//    }
+
+
     public Member findOne(Long memberId){
-        return memberRepository.findById(memberId);
+        return memberRepository.findById(memberId).get();
     }
+
+//    @Transactional
+//    public void update(Long id, String name) {
+//        Member findMember = memberRepository.findOne(id).get();
+//        findMember.setName(name);
+//    }
 
     @Transactional
     public void update(Long id, String name) {
-        Member findMember = memberRepository.findById(id);
+        Member findMember = memberRepository.findById(id).get();
         findMember.setName(name);
     }
 }

@@ -25,7 +25,7 @@ public class OrderService {
     private final ItemRepository itemRepository;
     @Transactional(readOnly = false)
     public Long createOrder(Long memberId, Long itemId, int count){
-        Member member = memberRepository.findById(memberId);
+        Member member = memberRepository.findById(memberId).get();
         Item item = itemRepository.findById(itemId);
 
         Delivery delivery = new Delivery();
