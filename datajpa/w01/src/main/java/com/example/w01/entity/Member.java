@@ -1,13 +1,14 @@
 package com.example.w01.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "MEMBER")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id", "memberName", "age"})
 public class Member {
 
     @Id
@@ -17,8 +18,13 @@ public class Member {
 
     private String memberName;
 
-    protected Member() {
-    }
+    private int age;
+
+    @ManyToOne()
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+//    protected Member() {
+//    }
 
     public Member(String memberName) {
         this.memberName = memberName;
@@ -26,5 +32,10 @@ public class Member {
 
     public void changeMemberName(String memberName){
         this.memberName = memberName;
+    }
+
+    public void changeTeam(Team team){
+        this.team = team;
+        team.getMembers().add(this);
     }
 }
