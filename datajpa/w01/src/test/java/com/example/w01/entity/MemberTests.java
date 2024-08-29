@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -35,6 +37,15 @@ class MemberTests {
         em.persist(memberB);
         em.persist(memberC);
         em.persist(memberD);
+
+        em.flush();
+        em.clear();
+
+        List<Member> memberList = em.createQuery("select m from Member m", Member.class).getResultList();
+
+        for (Member member : memberList) {
+            System.out.println(member);
+        }
 
 //        Member memberA = new Member("memberA");
 //        memberA.setAge(10);
