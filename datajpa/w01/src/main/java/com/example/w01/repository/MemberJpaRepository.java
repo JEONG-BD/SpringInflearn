@@ -39,6 +39,15 @@ public class MemberJpaRepository {
         return Optional.ofNullable(member);
     }
 
+    public List<Member> findByMembernameAndAgeGreaterThen(String memberName, int age){
+        return em.createQuery("select m from Member m" +
+                " where m.memberName = : memberName " +
+                " and m.age > :age")
+                .setParameter("memberName", memberName)
+                .setParameter("age", age)
+                .getResultList();
+    }
+
     public long count(){
         return em.createQuery("select count(m) from Member  m", Long.class).getSingleResult();
     }

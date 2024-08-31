@@ -87,4 +87,26 @@ class MemberJpaRepositoryTests {
         //then
         assertThat(count).isEqualTo(2);
     }
+
+    @Test
+    public void memberNameAndAgeTest() throws Exception{
+        //given
+        Member aaa = new Member("AAA", 10);
+        Member bbb = new Member("AAA", 20);
+
+        memberJpaRepository.save(aaa);
+        memberJpaRepository.save(bbb);
+
+        //when
+        List<Member> memberList = memberJpaRepository.findByMembernameAndAgeGreaterThen("AAA", 10);
+
+        //then
+        for (Member member : memberList) {
+            System.out.println("=====");
+            System.out.println(member);
+        }
+        assertThat(memberList.get(0).getMemberName()).isEqualTo("AAA");
+        assertThat(memberList.get(0).getAge()).isEqualTo(20);
+
+    }
 }
