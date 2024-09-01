@@ -2,6 +2,8 @@ package com.example.w01.repository;
 
 import com.example.w01.dto.MemberDto;
 import com.example.w01.entity.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -38,4 +40,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // One Row
     Optional<Member> findOptionalMemberByMemberName(String memberName);
+
+    @Query(value = "select m from Member m ", countQuery = "select count(m.memberName) from Member m")
+    Page<Member> findByAge(int age, Pageable pageable);
 }
