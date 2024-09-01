@@ -3,6 +3,7 @@ package com.example.w01.repository;
 import com.example.w01.dto.MemberDto;
 import com.example.w01.entity.Member;
 import com.example.w01.entity.Team;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +27,7 @@ class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
     @Autowired TeamRepository teamRepository;
+    @Autowired EntityManager em;
 
     @Test
     public void saveMember () throws Exception{
@@ -269,6 +271,36 @@ class MemberRepositoryTest {
         int updateCount = memberRepository.bulkAgePlus(15);
         //then
         assertThat(updateCount).isEqualTo(5);
+    }
+
+    @Test
+    public void findMemberLazy() throws Exception{
+        //given
+        Team teamA = new Team("TeamA");
+        Team teamB = new Team("TeamB");
+
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member memberA = new Member("member1", 10, teamA);
+        Member memberB = new Member("member2", 10, teamB);
+
+        memberRepository.save(memberA);
+        memberRepository.save(memberB);
+
+        em.flush();
+        em.clear();
+
+        //when
+        //List<Member> members = memberRepository.findMemberFetchJoin();
+        //List<Member> members = memberRepository.findAll();
+        List<Member> members = memberRepository.findEntityGraphByMemberName("member1");
+        for (Member member : members) {
+            System.out.println("member = " + member.getMemberName());
+            System.out.println("member.team = " + member.getTeam().getClass());
+        }
+        //then
+
     }
 
 }
