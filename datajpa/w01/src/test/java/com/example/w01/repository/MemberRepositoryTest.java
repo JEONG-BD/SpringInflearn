@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -168,4 +169,35 @@ class MemberRepositoryTest {
         }
         //then
     }
+
+    @Test
+    public void findListByMemberListTest() throws Exception{
+        //given
+        List<Member> memberList = memberRepository.findListByMemberName("BBB");
+        //when
+        System.out.println(memberList.size());
+        for (Member member : memberList) {
+            System.out.println(member);
+        }
+        //then
+    }
+
+    @Test
+    public void findMemberByMemberNameTest() throws Exception{
+        //given
+        Member findMember = memberRepository.findMemberByMemberName("A0001");
+        System.out.println(findMember);
+        //then
+    }
+
+    @Test
+    public void findOptionalMemberByMemberName() throws Exception{
+        //given
+        Optional<Member> optionalMember = memberRepository.findOptionalMemberByMemberName("CCC");
+        //when
+        System.out.println(optionalMember);
+
+        //then
+    }
+
 }
