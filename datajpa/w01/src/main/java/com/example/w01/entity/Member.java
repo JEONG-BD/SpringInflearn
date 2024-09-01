@@ -9,6 +9,11 @@ import lombok.*;
 @Table(name = "MEMBER")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "memberName", "age"})
+@NamedQuery(
+        name = "Member.findByMemberName",
+        query = "select m from Member m where m.memberName = :memberName"
+
+)
 public class Member {
 
     @Id

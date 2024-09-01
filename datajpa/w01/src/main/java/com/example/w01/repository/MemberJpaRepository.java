@@ -52,5 +52,9 @@ public class MemberJpaRepository {
         return em.createQuery("select count(m) from Member  m", Long.class).getSingleResult();
     }
 
+    public List<Member> findByMemberName(String memberName){
+        return em.createNamedQuery("Member.findByMemberName", Member.class).setParameter("memberName", memberName).getResultList();
+    }
+
 
 }

@@ -86,4 +86,22 @@ class MemberRepositoryTest {
         }
         //then
     }
+
+    @Test
+    public void namedQueryTest() throws Exception{
+        //given
+        Member aaa = new Member("TDD", 10);
+
+        memberRepository.save(aaa);
+        //when
+        List<Member> namedQueryList = memberRepository.findByMemberName("TDD");
+
+        for (Member member : namedQueryList) {
+            System.out.println("=====");
+            System.out.println(member);
+        }
+        //then
+        assertThat(namedQueryList.get(0).getMemberName()).isEqualTo("TDD");
+
+    }
 }
