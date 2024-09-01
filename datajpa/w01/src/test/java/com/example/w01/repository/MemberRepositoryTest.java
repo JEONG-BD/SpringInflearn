@@ -68,4 +68,22 @@ class MemberRepositoryTest {
         //then
         assertThat(count).isEqualTo(2);
     }
+
+    @Test
+    public void memberNameAndAgeTest() throws Exception{
+        //given
+        Member aaa = new Member("AAA", 10);
+        Member bbb = new Member("AAA", 20);
+
+        memberRepository.save(aaa);
+        memberRepository.save(bbb);
+
+        //when
+        List<Member> memberList = memberRepository.findBymemberNameAndAgeGreaterThan("AAA", 10);
+
+        for (Member member : memberList) {
+            System.out.println(member.getMemberName());
+        }
+        //then
+    }
 }
