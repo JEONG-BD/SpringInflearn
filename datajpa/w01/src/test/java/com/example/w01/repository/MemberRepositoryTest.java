@@ -250,4 +250,25 @@ class MemberRepositoryTest {
 
     }
 
+
+    @Test
+    public void bulkUpdate() throws Exception{
+        //given
+        memberRepository.save(new Member("AAA", 10));
+        memberRepository.save(new Member("AAA", 11));
+        memberRepository.save(new Member("AAA", 11));
+        memberRepository.save(new Member("AAA", 13));
+        memberRepository.save(new Member("AAA", 13));
+        memberRepository.save(new Member("AAA", 15));
+        memberRepository.save(new Member("AAA", 15));
+        memberRepository.save(new Member("AAA", 15));
+        memberRepository.save(new Member("AAA", 16));
+        memberRepository.save(new Member("AAA", 17));
+
+        //when
+        int updateCount = memberRepository.bulkAgePlus(15);
+        //then
+        assertThat(updateCount).isEqualTo(5);
+    }
+
 }
