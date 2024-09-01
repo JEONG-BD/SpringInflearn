@@ -1,6 +1,8 @@
 package com.example.w01.repository;
 
+import com.example.w01.dto.MemberDto;
 import com.example.w01.entity.Member;
+import com.example.w01.entity.Team;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
+    @Autowired TeamRepository teamRepository;
+
     @Test
     public void saveMember () throws Exception{
         Member member = new Member("member A");
@@ -118,5 +122,37 @@ class MemberRepositoryTest {
         //then
         assertThat(findMemberList.get(0).getMemberName()).isEqualTo(memberA.getMemberName());
 
+    }
+
+    @Test
+    public void nameListTest() throws Exception{
+        //given
+        List<String> members = memberRepository.memberNameList();
+        //when
+        for (String name : members) {
+            System.out.println(name);
+        }
+        //then
+    }
+    @Test
+    public void fidndMemberDto() throws Exception{
+        //given
+        Team teamA = new Team("teamA");
+        teamRepository.save(teamA);
+
+        Member memberA = new Member("A0001", 10);
+        memberA.setTeam(teamA);
+
+        memberRepository.save(memberA);
+
+        //when
+        List<MemberDto> memberDto = memberRepository.findMemberDto();
+        for (MemberDto dto : memberDto) {
+            System.out.println(dto.getMemberName());
+            System.out.println(dto.getTeamName());
+
+        }
+
+        //then
     }
 }
