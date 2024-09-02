@@ -334,7 +334,17 @@ class MemberRepositoryTest {
         List<Member> members = memberRepository.findLockByMemberName("member2");
 
         //then
-
+    }
+    
+    @Test
+    public void callCustom() throws Exception{
+        //given
+        List<Member> memberCustom = memberRepository.findMemberCustom();
+        //when 
+        for (Member member : memberCustom) {
+            System.out.println(member.getMemberName());
+        }
+        //then
     }
 
 
