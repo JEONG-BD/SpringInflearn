@@ -303,4 +303,39 @@ class MemberRepositoryTest {
 
     }
 
+    @Test
+    public void queryTest() throws Exception{
+        //given
+        Member member = new Member("member1", 10);
+        memberRepository.save(member);
+
+        em.flush();
+        em.clear();
+        //when
+
+        Member findMember = memberRepository.findReadOnlyByMemberName("member2");
+        findMember.setMemberName("member2");
+
+        em.flush();
+        //then
+
+    }
+
+    @Test
+    public void lockTest() throws Exception{
+        //given
+        Member member = new Member("member1", 10);
+        memberRepository.save(member);
+
+        em.flush();
+        em.clear();
+        //when
+
+        List<Member> members = memberRepository.findLockByMemberName("member2");
+
+        //then
+
+    }
+
+
 }
