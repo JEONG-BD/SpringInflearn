@@ -347,5 +347,27 @@ class MemberRepositoryTest {
         //then
     }
 
+    @Test
+    public void JpaEventBaseEntity() throws Exception{
+        //given
+        Member member = new Member("JJJJ", 10);
+        memberRepository.save(member);
+
+        Thread.sleep(100);
+        member.setMemberName("TTTT");
+        //when
+        em.flush();
+        em.clear();
+
+        Member findMember = memberRepository.findById(member.getId()).get();
+
+        //then
+        System.out.println("find Member " + findMember);
+        System.out.println(findMember.getCreatedDate());
+        System.out.println(findMember.getLastModifiedDate());
+        System.out.println(findMember.getCreatedBy());
+        System.out.println(findMember.getLastModifiedBy());
+
+    }
 
 }

@@ -14,7 +14,7 @@ import lombok.*;
         query = "select m from Member m where m.memberName = :memberName"
 
 )
-public class Member {
+public class Member extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
