@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 public class Item implements Persistable<String> {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 
-//    public Item() {
-//    }
+    public Item() {
+    }
 //    @Column(name="ITEM_ID")
 //    private Long id;
 
@@ -35,6 +35,10 @@ public class Item implements Persistable<String> {
     @Override
     public String getId(){
         return id;
+    }
+
+    public Item(String id) {
+        this.id = id;
     }
 
     @Override
