@@ -44,10 +44,10 @@ public class MemberController {
         Page<MemberDto> map = page.map(member -> new MemberDto(member.getId(), member.getMemberName(), null));
         return map;
     }
-    @PostConstruct
-    public void init(){
-        for (int i=0; i< 100; i++){
-            memberRepository.save(new Member("ddd"+i, 10));
-        }
-    }
+//    @PostConstruct
+//    public void init(){
+//        for (int i=0; i< 100; i++){
+//            memberRepository.save(new Member("ddd"+i, 10));
+//        }
+//    }
 }
