@@ -4,12 +4,11 @@ import com.example.w01.dto.MemberDto;
 import com.example.w01.entity.Member;
 import com.example.w01.entity.Team;
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -370,4 +369,30 @@ class MemberRepositoryTest {
 
     }
 
+    @Test
+    public void queryByExample() throws Exception{
+        //given
+        Team team = new Team("AAA");
+        em.persist(team);
+        Member member1 = new Member("m1", 10, team);
+        Member member2 = new Member("m2", 10, team);
+        em.persist(member1);
+        em.persist(member2);
+        em.flush();
+        em.clear();
+
+        //memberRepository.findByMemberName(member1.getMemberName());
+
+        //when
+        Member member = new Member("m1", 10);
+        Team team1 = new Team("AAA");
+        member.setTeam(team1)b;
+        ExampleMatcher age = ExampleMatcher.matching().withIgnorePaths("age");
+        Example<Member> example = Example.of(member, age);
+        List<Member> all = memberRepository.findAll(example);
+
+
+        //then
+        assertThat(all.get(0).getMemberName()).isEqualTo("m1");
+    }
 }
