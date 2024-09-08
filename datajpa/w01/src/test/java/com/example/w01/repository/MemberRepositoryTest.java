@@ -418,4 +418,24 @@ class MemberRepositoryTest {
 //        }
         //then
     }
+
+    @Test
+    public void nativaQuery() throws Exception{
+        //given
+        Team team = new Team("AAA");
+        em.persist(team);
+        //Member member1 = new Member("m1", 10, team);
+        Member member2 = new Member("m2", 10, team);
+        //em.persist(member1);b
+        em.persist(member2);
+        em.flush();
+        em.clear();
+        //when
+        Page<MemberProjection> byNativaProjection = memberRepository.findByNativaProjection(PageRequest.of(0, 5));
+//        Member m1 = byNativaProjection;
+//        //when
+//        System.out.println(m1);
+
+        //then
+    }
 }
