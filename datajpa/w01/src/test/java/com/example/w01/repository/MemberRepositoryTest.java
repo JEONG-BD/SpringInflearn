@@ -386,13 +386,36 @@ class MemberRepositoryTest {
         //when
         Member member = new Member("m1", 10);
         Team team1 = new Team("AAA");
-        member.setTeam(team1)b;
+        member.setTeam(team1);
         ExampleMatcher age = ExampleMatcher.matching().withIgnorePaths("age");
         Example<Member> example = Example.of(member, age);
         List<Member> all = memberRepository.findAll(example);
 
-
         //then
         assertThat(all.get(0).getMemberName()).isEqualTo("m1");
+    }
+
+    @Test
+    public void projects() throws Exception{
+        //given
+        Team team = new Team("AAA");
+        em.persist(team);
+        Member member1 = new Member("m1", 10, team);
+        Member member2 = new Member("m2", 10, team);
+        em.persist(member1);
+        em.persist(member2);
+        em.flush();
+        em.clear();
+        //when
+        List<UserNameOnly> memberList = memberRepository.findProjectionByMemberName("m1");
+        for (UserNameOnly userNameOnly : memberList) {
+            System.out.println(userNameOnly);
+        }
+
+//        List<MemberNameOnlyDto> memberList = memberRepository.findProjectionByMemberName("m1");
+//        for (MemberNameOnlyDto member: memberList) {
+//            System.out.println(member.getMemberName());
+//        }
+        //then
     }
 }
