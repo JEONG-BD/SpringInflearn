@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.w01.entity.QMember.member;
+
 @SpringBootTest
 @Transactional
 public class QuerydslBasicTests {
@@ -16,11 +18,12 @@ public class QuerydslBasicTests {
     @Autowired
     EntityManager em;
 
-    //bJPAQueryFactory queryFactory = new JPAQueryFactory(em);
+    JPAQueryFactory queryFactory;
 
     @BeforeEach
     public void before(){
         //given
+        queryFactory = new JPAQueryFactory(em);
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");
         em.persist(teamA);
@@ -62,12 +65,25 @@ public class QuerydslBasicTests {
     @Test
     public void startQuerydsl() throws Exception{
         //given
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-        QMember m = new QMember("m");
-
+        //JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        //QMember m = new QMember("m");
+        QMember m = member;
         Member findMember = queryFactory.select(m)
                 .from(m)
                 .where(m.membername.eq("member1"))
+                .fetchOne();
+        //when
+
+        Assertions.assertThat(findMember.getMembername()).isEqualTo("member1");
+        //then
+    }
+
+    @Test
+    public void qTypeTest() throws Exception{
+
+        Member findMember = queryFactory.select(member)
+                .from(member)
+                .where(member.membername.eq("member1"))
                 .fetchOne();
         //when
 
