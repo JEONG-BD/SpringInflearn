@@ -2,7 +2,9 @@ package com.example.w01.entity;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -442,6 +444,37 @@ public class QuerydslBasicTests {
             System.out.println("s = "  + s);
         }
         //when
+
+        //then
+    }
+    
+    
+    @Test
+    public void constTest() throws Exception{
+        //given
+
+        List<Tuple>  result = queryFactory.select(member.membername, Expressions.constant("A"))
+                .from(member)
+                .fetch();
+
+        //when
+        for (Tuple tuple : result) {
+            System.out.println("tuple = " + tuple );
+        }
+        
+        //then
+    }
+    
+    @Test
+    public void concatTest() throws Exception{
+        //given
+        List<String> result = queryFactory.select(member.membername.concat("_").concat(member.age.stringValue()))
+                .from(member)
+                .fetch();
+        //when 
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
 
         //then
     }
