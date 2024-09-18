@@ -8,14 +8,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static com.example.w01.entity.QMember.member;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @Transactional
+@Commit
 public class QuerydslBasicTests {
 
     @Autowired
@@ -135,5 +138,27 @@ public class QuerydslBasicTests {
         List<Member> results = memberQueryResults.getResults();
 
     }
+    
 
+    @Test
+    public void sortTest() throws Exception{
+        //given
+        em.persist(new Member(null, 100));
+        em.persist(new Member("member5", 100));
+        em.persist(new Member("member6", 100));
+        //when
+        List<Member> result = queryFactory.selectFrom(member)
+                .where(member.age.eq(100))
+                .orderBy(member.age.desc(), member.membername.asc().nullsLast())
+                .fetch();
+
+        Member member5 = result.get(0);
+        Member member6 = result.get(1);
+        Member memberNull = result.get(2);
+        assertThat(member5.getMembername()).isEqualTo("member5");
+        assertThat(member6.getMembername()).isEqualTo("member6");
+        assertThat(memberNull.getMembername()).isNull();
+        //then
+
+    }
 }
