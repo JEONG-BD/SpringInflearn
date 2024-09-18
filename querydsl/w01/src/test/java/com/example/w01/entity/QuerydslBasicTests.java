@@ -161,4 +161,33 @@ public class QuerydslBasicTests {
         //then
 
     }
+    
+    
+    @Test
+    public void paging1Test() throws Exception{
+        //given
+        List<Member> result = queryFactory.selectFrom(member)
+                .orderBy(member.membername.desc())
+                .offset(0)
+                .limit(2)
+                .fetch();
+        //when 
+        assertThat(result.size()).isEqualTo(2);
+        //then
+    }
+
+
+    @Test
+    public void paging2Test() throws Exception{
+        //given
+        List<Member> result = queryFactory.selectFrom(member)
+                .orderBy(member.membername.desc())
+                .offset(0)
+                .limit(2)
+                .fetch();        //when
+        Long totalCount = queryFactory.select(member.count()).from(member).fetchOne();
+
+        //when
+        assertThat(totalCount).isEqualTo((4L));
+    }
 }
