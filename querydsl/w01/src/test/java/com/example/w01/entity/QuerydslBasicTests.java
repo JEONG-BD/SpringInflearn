@@ -1,8 +1,12 @@
 package com.example.w01.entity;
 
+import com.example.w01.dto.MemberDto;
+import com.example.w01.dto.UserDto;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
@@ -511,7 +515,114 @@ public class QuerydslBasicTests {
 
         //then
     }
+    
+    @Test
+    public void findDTOByJPQLTest() throws Exception{
+        //given
+        List<MemberDto> resultList = em.createQuery("select new com.example.w01.dto.MemberDto(m.membername, m.age) " +
+                        "from Member m", MemberDto.class)
+                .getResultList();
+        //when 
+        for (MemberDto memberDto : resultList) {
+            System.out.println("memberDto = " + memberDto);
+        }
 
+        //then
+    }
+    
+    @Test
+    public void findDtoBySetter() throws Exception{
+        //given
+        List<MemberDto> result = queryFactory
+                .select(Projections.bean(MemberDto.class,
+                        member.membername,
+                        member.age))
+                .from(member)
+                .fetch();
+
+        //when 
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+        //then
+    }
+
+
+    @Test
+    public void findDtoByField() throws Exception {
+        //given
+        List<MemberDto> result = queryFactory
+                .select(Projections.fields(MemberDto.class,
+                        member.membername,
+                        member.age))
+                .from(member)
+                .fetch();
+
+        //when
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+
+    }
+
+
+    @Test
+    public void findDtoByConstructor() throws Exception {
+        //given
+        List<MemberDto> result = queryFactory
+                .select(Projections.constructor(MemberDto.class,
+                        member.membername,
+                        member.age))
+                .from(member)
+                .fetch();
+
+        //when
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+        //then
+    }
+
+
+    @Test
+    public void findUserDto() throws Exception {
+        //given
+        List<UserDto> result = queryFactory
+                .select(Projections.fields(UserDto.class,
+                        member.membername.as("name"),
+                        member.age))
+                .from(member)
+                .fetch();
+
+        //when
+        for (UserDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+        //then
+    }
+
+
+
+    @Test
+    public void findUserDtoExpressionUtils() throws Exception {
+        //given
+        QMember memberSub = new QMember("memberSub");
+        List<UserDto> result = queryFactory
+                .select(Projections.fields(UserDto.class,
+                        member.membername.as("name"),
+                        ExpressionUtils.as(JPAExpressions
+                                .select(memberSub.age
+                                        .max())
+                                .from(memberSub), "age")))
+                .from(member)
+                .fetch();
+
+        //when
+        for (UserDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+        //then
+    }
 
 }
 
