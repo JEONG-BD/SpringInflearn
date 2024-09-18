@@ -1,6 +1,7 @@
 package com.example.w01.entity;
 
 import com.example.w01.dto.MemberDto;
+import com.example.w01.dto.QMemberDto;
 import com.example.w01.dto.UserDto;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
@@ -621,6 +622,21 @@ public class QuerydslBasicTests {
         for (UserDto memberDto : result) {
             System.out.println("memberDto = " + memberDto);
         }
+        //then
+    }
+    
+    @Test
+    public void findDtoByQueryProjection() throws Exception{
+        //given
+        List<MemberDto> result = queryFactory
+                .select(new QMemberDto(member.membername, member.age))
+                .from(member)
+                .fetch();
+        //when
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+        
         //then
     }
 
