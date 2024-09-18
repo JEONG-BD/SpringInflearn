@@ -2,6 +2,7 @@ package com.example.w01.entity;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -409,6 +410,42 @@ public class QuerydslBasicTests {
 
         //then
     }
+
+    @Test
+    public void basicCaseTest() throws Exception{
+        //given
+        List<String> result = queryFactory.select(member.age
+                        .when(10).then("열살")
+                        .when(20).then("스무살")
+                        .otherwise("기타"))
+                .from(member)
+                .fetch();
+        for (String s : result) {
+            System.out.println("s = "  + s);
+        }
+        //when
+
+        //then
+    }
+
+    @Test
+    public void complexCaseTest() throws Exception{
+        //given
+        List<String> result = queryFactory
+                .select(new CaseBuilder()
+                        .when(member.age.between(0, 20)).then("0~20 살")
+                        .when(member.age.between(20, 30)).then("20~30살")
+                        .otherwise("기타"))
+                .from(member)
+                .fetch();
+        for (String s : result) {
+            System.out.println("s = "  + s);
+        }
+        //when
+
+        //then
+    }
+
 
 }
 
