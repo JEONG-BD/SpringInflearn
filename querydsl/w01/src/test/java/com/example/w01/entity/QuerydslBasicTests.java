@@ -478,6 +478,39 @@ public class QuerydslBasicTests {
 
         //then
     }
+    
+    @Test
+    public void simpleProjectionTest() throws Exception{
+        //given
+        List<String> result = queryFactory
+                .select(member.membername)
+                .from(member)
+                .fetch();
+        //when 
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+        //then
+    }
+    
+    @Test
+    public void tupleProjectionTest() throws Exception{
+        //given
+        List<Tuple> tupleResult = queryFactory
+                .select(member.membername, member.age)
+                .from(member)
+                .fetch();
+        //when 
+        for (Tuple tuple : tupleResult) {
+            String memberName = tuple.get(member.membername);
+            Integer memberAge = tuple.get(member.age);
+            System.out.println("memberName = " + memberName);
+            System.out.println("member Age = " + memberAge);
+            System.out.println("=====");
+        }
+
+        //then
+    }
 
 
 }
