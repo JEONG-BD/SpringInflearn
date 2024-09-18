@@ -2,6 +2,7 @@ package com.example.w01.entity;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -335,6 +336,80 @@ public class QuerydslBasicTests {
 
         //then
     }
+    
+    @Test
+    public void subQueryEqTest() throws Exception{
+        //given
 
+        QMember memberSub = new QMember("memberSub");
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .where(member
+                        .age.eq(JPAExpressions
+                                .select(memberSub.age.max())
+                                .from(memberSub)))
+                .fetch();
+        //when
+        assertThat(result).extracting("age").containsExactly(40);
+        
+        //then
+    }
+
+    @Test
+    public void subQueryGoeTest() throws Exception{
+        //given
+
+        QMember memberSub = new QMember("memberSub");
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .where(member
+                        .age.goe(JPAExpressions
+                                .select(memberSub.age.avg())
+                                .from(memberSub)))
+                .fetch();
+        //when
+        assertThat(result).extracting("age").containsExactly(30,40);
+
+        //then
+    }
+
+    @Test
+    public void subQueryInTest() throws Exception{
+        //given
+
+        QMember memberSub = new QMember("memberSub");
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .where(member
+                        .age.in(JPAExpressions
+                                .select(memberSub.age)
+                                .from(memberSub)
+                                .where(memberSub.age.gt(10))))
+                .fetch();
+        //when
+        assertThat(result).extracting("age").containsExactly(20, 30,40);
+
+        //then
+    }
+
+    @Test
+    public void selectSubQueryTest() throws Exception{
+        //given
+        QMember memberSub = new QMember("memberSub");
+
+        List<Tuple> fetch = queryFactory.select(member.membername,
+                        JPAExpressions.select(memberSub.age.avg())
+                                .from(memberSub))
+                .from(member)
+                .fetch();
+        //when
+        for (Tuple tuple : fetch) {
+            System.out.println("tuple = " + tuple);
+        }
+
+        //then
+    }
 
 }
+
+
