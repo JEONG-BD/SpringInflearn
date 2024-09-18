@@ -3,6 +3,7 @@ package com.example.w01.entity;
 import com.example.w01.dto.MemberDto;
 import com.example.w01.dto.QMemberDto;
 import com.example.w01.dto.UserDto;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
@@ -638,6 +639,40 @@ public class QuerydslBasicTests {
         }
         
         //then
+    }
+    
+    @Test
+    public void dynamicQuery_By_BooleanBuilder() {
+        //given
+        String membernameParam = "member1";
+        Integer ageParam = 10;
+
+        List<Member> result = searchMember1(membernameParam, ageParam);
+
+        for (Member member1 : result) {
+            System.out.println("member1 = " + member1);
+            System.out.println("=====================");
+        }
+        assertThat(result.size()).isEqualTo(1);
+        //when 
+        
+        //then
+    }
+
+    private List<Member> searchMember1(String membernameParam, Integer ageParam) {
+
+        BooleanBuilder builder = new BooleanBuilder();
+        if(membernameParam != null){
+            builder.and(member.membername.eq(membernameParam));
+        }
+
+        if(ageParam != null){
+            builder.and(member.age.eq(ageParam));
+        }
+
+        return queryFactory.selectFrom(member)
+                .where(builder)
+                .fetch();
     }
 
 }
