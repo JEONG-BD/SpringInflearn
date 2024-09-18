@@ -16,8 +16,8 @@ import java.util.List;
 
 import static com.example.w01.entity.QMember.member;
 import static com.example.w01.entity.QTeam.team;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+// import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @Transactional
 @Commit
@@ -228,5 +228,38 @@ public class QuerydslBasicTests {
         assertThat(teamB.get(member.age.avg())).isEqualTo(35);
 
         //then
+    }
+    
+    @Test
+    public void join1Test() throws Exception{
+        //given
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .join(member.team, team)
+                .where(team.name.eq("teamA"))
+                .fetch();
+
+        //when
+
+        
+        //then
+        //assertThat(result).extracting("membername").ex("member1", "member2");
+        assertThat(result).extracting("membername").containsExactly("member1", "member2");
+    }
+    
+    @Test
+    public void thetaJoinTest() throws Exception{
+        //given
+        em.persist(new Member("teamA"));
+        em.persist(new Member("teamB"));
+
+        //when 
+        List<Member> result = queryFactory.select(member)
+                .from(member, team)
+                .where(member.membername.eq(team.name)).fetch();
+        //then
+        assertThat(result).extracting("membername").containsExactly("teamA", "teamB");
+
+
     }
 }
