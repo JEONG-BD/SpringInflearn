@@ -730,6 +730,54 @@ public class QuerydslBasicTests {
                 .fetch();
     }
 
+    @Test
+    public void bulkUpdateTest() throws Exception{
+        //given
+        long count = queryFactory.update(member)
+                .set(member.membername, "비회원")
+                .where(member.age.lt(28))
+                .execute();
+
+        em.flush();
+        em.clear();
+        //when
+        System.out.println("count = " + count);
+
+        //then
+    }
+
+    @Test
+    public void bulkAdd() throws Exception{
+        //given
+         queryFactory.update(member)
+                 .set(member.age, member.age.add(1))
+                 .execute();
+        //when
+
+        //then
+    }
+
+    @Test
+    public void bulkMulty() throws Exception{
+        //given
+        queryFactory.update(member)
+                .set(member.age, member.age.multiply(2))
+                .execute();
+        //when
+
+        //then
+    }
+
+    @Test
+    public void bulkDelete() throws Exception{
+        //given
+        queryFactory.delete(member)
+                .where(member.age.gt(60))
+                .execute();
+        //when
+        //then
+    }
+
 }
 
 
