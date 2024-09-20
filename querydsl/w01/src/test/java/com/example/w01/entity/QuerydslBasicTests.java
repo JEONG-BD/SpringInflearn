@@ -778,6 +778,37 @@ public class QuerydslBasicTests {
         //then
     }
 
+
+    @Test
+    public void sqlFunctionTest() throws Exception{
+        //given
+
+        List<String> result = queryFactory.select(Expressions.stringTemplate("function('replace', {0}, {1}, {2})",
+                        member.membername, "member", "M"))
+                .from(member)
+                .fetch();
+        //when
+
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+
+        //then
+    }
+
+    @Test
+    public void sqlFunction2Test() throws Exception{
+        //given
+        List<String> result = queryFactory.select(member.membername)
+                .from(member)
+                .where(member.membername.eq(Expressions.stringTemplate("function('lower', {0})", member.membername)))
+                .fetch();
+        //when
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+        //then
+    }
 }
 
 
