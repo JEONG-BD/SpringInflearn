@@ -8,6 +8,7 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
@@ -657,6 +658,60 @@ public class QuerydslBasicTests {
         //when 
         
         //then
+    }
+    
+    @Test
+    public void dynamicQuery_By_WhereParam() throws Exception{
+        //given
+        String membernameParam = "member1";
+        Integer ageParam = 10;
+
+        //when
+        List<Member> result = searchMember2(membernameParam, ageParam);
+
+        for (Member member1 : result) {
+            System.out.println("member1 = " + member1);
+            System.out.println("=====================");
+        }
+        assertThat(result.size()).isEqualTo(1);
+        //when
+        
+        //then
+    }
+
+    private List<Member> searchMember2(String membernameParam, Integer ageParam) {
+
+        return queryFactory.selectFrom(member)
+                .where(membernameEq(membernameParam), ageEq(ageParam))
+                .fetch();
+    }
+
+    private Predicate ageEq(Integer ageParam) {
+//        if (ageParam != null) {
+//            return member.age.eq(ageParam);
+//        }
+//        else {
+//            return null;
+//        }
+
+        if(ageParam == null){
+            return null;
+        }
+        return member.age.eq(ageParam);
+    }
+
+    private Predicate membernameEq(String membernameParam) {
+//        if (membernameParam != null) {
+//            return member.membername.eq(membernameParam);
+//        }
+//        else {
+//            return null;
+//        }
+
+        if(membernameParam == null){
+            return null;
+        }
+        return member.membername.eq(membernameParam);
     }
 
     private List<Member> searchMember1(String membernameParam, Integer ageParam) {
