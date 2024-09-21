@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3307/jpadata?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
