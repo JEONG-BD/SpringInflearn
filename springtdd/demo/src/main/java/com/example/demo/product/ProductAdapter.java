@@ -2,7 +2,9 @@ package com.example.demo.product;
 
 import com.example.demo.product.Product;
 import com.example.demo.product.ProductRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 class ProductAdapter implements ProductPart {
 
     //private final ProductServicesTest productServicesTest;

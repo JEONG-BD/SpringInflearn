@@ -1,7 +1,10 @@
 package com.example.demo.product;
 
 import com.example.demo.product.Product;
+import org.springframework.stereotype.Component;
 
+
+@Component
 class ProductService {
 
     //private final ProductServicesTest productServicesTest;

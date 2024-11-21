@@ -2,10 +2,16 @@ package com.example.demo.product;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+
+@SpringBootTest
 public class ProductServicesTest {
 
+    @Autowired
     private ProductService productService;
+    /*
     private ProductPart productPart;
     private ProductRepository productRepository;
 
@@ -15,6 +21,7 @@ public class ProductServicesTest {
         productPart  = new ProductAdapter(productRepository);
         productService = new ProductService(productPart);
     }
+    */
 
     @Test
     public void registerProduct () {
