@@ -1,4 +1,6 @@
-package com.example.demo.product.v2;
+package com.example.demo.product;
+
+import com.example.demo.product.Product;
 
 import java.util.HashMap;
 import java.util.Map;

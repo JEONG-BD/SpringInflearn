@@ -1,4 +1,7 @@
-package com.example.demo.product.v2;
+package com.example.demo.product;
+
+import com.example.demo.product.Product;
+import com.example.demo.product.ProductRepository;
 
 class ProductAdapter implements ProductPart {
 
