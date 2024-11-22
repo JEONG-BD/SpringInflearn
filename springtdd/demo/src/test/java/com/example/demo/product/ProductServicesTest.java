@@ -9,16 +9,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class ProductServicesTest {
 
+    @Autowired
     private ProductService productService;
-    private ProductRepository productRepository;
-    private ProductPart productPart;
+//    private ProductRepository productRepository;
+//    private ProductPart productPart;
 
-    @BeforeEach
-    void setUp(){
-        productRepository = new ProductRepository();
-        productPart  = new ProductAdapter(productRepository);
-        productService = new ProductService(productPart);
-    }
+//    @BeforeEach
+//    void setUp(){
+//        productRepository = new ProductRepository();
+//        productPart  = new ProductAdapter(productRepository);
+//        productService = new ProductService(productPart);
+//    }
 
 
     @Test
