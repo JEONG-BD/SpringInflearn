@@ -9,11 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class ProductServicesTest {
 
-    @Autowired
     private ProductService productService;
-    /*
-    private ProductPart productPart;
     private ProductRepository productRepository;
+    private ProductPart productPart;
 
     @BeforeEach
     void setUp(){
@@ -21,20 +19,22 @@ public class ProductServicesTest {
         productPart  = new ProductAdapter(productRepository);
         productService = new ProductService(productPart);
     }
-    */
+
 
     @Test
     public void registerProduct () {
         //given
+
+        final AddProductRequest request = setAddProductRequest();
+
+        productService.addProduct(request);
+    }
+
+    private static AddProductRequest setAddProductRequest() {
         final String name = "상품명";
         final int price = 1000;
         final DiscountPolicy discountPolicy = DiscountPolicy.None;
         final AddProductRequest request = new AddProductRequest(name, price, discountPolicy);
-
-        //when
-        productService.addProduct(request);
-
-        //then
-
+        return request;
     }
 }
