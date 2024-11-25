@@ -1,13 +1,22 @@
 package com.example.demo.product;
 
+import com.example.demo.ApiTest;
+import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 
 @SpringBootTest
-public class ProductServicesTest {
+public class ProductApiTest extends ApiTest {
 
     @Autowired
     private ProductService productService;
@@ -27,8 +36,16 @@ public class ProductServicesTest {
         //given
 
         final AddProductRequest request = setAddProductRequest();
+        final ExtractableResponse<Response> response = RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(request)
+                .when()
+                .post("/products")
+                .then()
+                .log().all().extract();
 
-        productService.addProduct(request);
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+        //productService.addProduct(request);
     }
 
     private static AddProductRequest setAddProductRequest() {
