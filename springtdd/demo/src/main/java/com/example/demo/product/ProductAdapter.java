@@ -5,7 +5,7 @@ import com.example.demo.product.ProductRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-class ProductAdapter implements ProductPart {
+class ProductAdapter implements ProductPort {
 
     //private final ProductServicesTest productServicesTest;
     private final ProductRepository productRepository;

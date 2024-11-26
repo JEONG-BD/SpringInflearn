@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 class ProductService {
 
     //private final ProductServicesTest productServicesTest;
-    private final ProductPart productPart;
+    private final ProductPort productPort;
 
-    ProductService(final ProductPart productPart) {
+    ProductService(final ProductPort productPort) {
         //this.productServicesTest = productServicesTest;
-        this.productPart = productPart;
+        this.productPort = productPort;
     }
 
     public void addProductOrigin(AddProductRequest request) {
         final Product product = new Product(request.name(), request.price(), request.discountPolicy());
-        productPart.save(product);
+        productPort.save(product);
     }
 
     @PostMapping
     public ResponseEntity<Void> addProductV1(@RequestBody final AddProductRequest request) {
         final Product product = new Product(request.name(), request.price(), request.discountPolicy());
-        productPart.save(product);
+        productPort.save(product);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
