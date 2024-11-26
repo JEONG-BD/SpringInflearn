@@ -1,6 +1,7 @@
 package com.example.demo.product;
 
 import com.example.demo.product.Product;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,7 @@ class ProductService {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<Void> addProductV1(@RequestBody final AddProductRequest request) {
         final Product product = new Product(request.name(), request.price(), request.discountPolicy());
         productPort.save(product);
