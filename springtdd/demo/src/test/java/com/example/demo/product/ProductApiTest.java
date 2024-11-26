@@ -15,11 +15,10 @@ import org.springframework.http.MediaType;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 
-@SpringBootTest
 public class ProductApiTest extends ApiTest {
 
-    @Autowired
-    private ProductService productService;
+//    @Autowired
+//    private ProductService productService;
 //    private ProductRepository productRepository;
 //    private ProductPart productPart;
 
