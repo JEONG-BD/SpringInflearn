@@ -37,4 +37,16 @@ class ProductService {
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    public GetProductResponse getProduct(final long productId) {
+        final Product product = productPort.getProduct(productId);
+        //throw new UnsupportedOperationException("Unsupported getProduct");
+        System.out.println(product);
+        System.out.println("product = " + product);
+        return new GetProductResponse(product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getDiscountPolicy());
+    }
+
 }
